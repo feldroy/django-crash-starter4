@@ -1,0 +1,39 @@
+os: linux
+dist: bionic
+
+services:
+  - docker
+
+language: python
+
+python: 3.8
+
+before_install:
+  - docker-compose -v
+  - docker -v
+
+jobs:
+  include:
+    - name: Test results
+      script: tox -e py38
+    - name: Black template
+      script: tox -e black-template
+    - name: Bare metal with Postgresql
+      script: sh tests/test_bare.sh database=PostgreSQL windows=n
+      before_script:
+        - psql -c 'create database everycheese;' -U postgres
+      services:
+        - postgresql
+        - redis
+    - name: Bare metal with SQLite
+      script: sh tests/test_bare.sh database=SQLite windows=n
+      services:
+        - redis
+
+install:
+  - pip install tox
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
