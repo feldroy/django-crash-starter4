@@ -1,0 +1,14 @@
+{
+  "project_name": "EveryCheese",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "description": "The Ultimate Cheese Index!",
+  "author_name": "Your name here",
+  "domain_name": "everycheese.com",
+  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@example.com",
+  "timezone": "UTC",
+  "windows": "n",
+  "database": [
+    "PostgreSQL",
+    "SQLite"
+  ]
+}
